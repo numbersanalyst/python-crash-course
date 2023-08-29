@@ -1,3 +1,5 @@
+# 3.4
+
 guests = ['Kamil', 'Marian', 'Konrad']
 
 message = 'Jesteś zaproszony na obiad,'
