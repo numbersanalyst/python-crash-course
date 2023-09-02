@@ -16,7 +16,7 @@ print(f'{message} {guests[0]}!')
 print(f'{message} {guests[1]}!')
 print(f'{message} {guests[2]}!')
 
-print('Znalazło się więcej miejsc, będzie nowy stół.')
+print('\nZnalazło się więcej miejsc, będzie nowy stół.')
 
 guests.insert(0,'Waldek')
 guests.insert(2, 'Ludwik')
@@ -29,7 +29,18 @@ print(f'{message} {guests[3]}!')
 print(f'{message} {guests[4]}!')
 print(f'{message} {guests[5]}!')
 
-print('Jednak można zaprosić tylko dwie osoby...')
+print('\nJednak można zaprosić tylko dwie osoby...')
+print(f'Przepraszamy {guests.pop()}, nie możesz być zaproszony')
+print(f'Przepraszamy {guests.pop()}, nie możesz być zaproszony')
+print(f'Przepraszamy {guests.pop()}, nie możesz być zaproszony')
+print(f'Przepraszamy {guests.pop()}, nie możesz być zaproszony')
 
-guests.pop()
-guests.pop()
+message = 'jesteś wyjątkiem, który przyjdzie na obiad.'
+
+print(f'{guests[0]} {message}')
+print(f'{guests[1]} {message}')
+
+del guests[0]
+del guests[0]
+
+print(guests)
