@@ -1,5 +1,6 @@
 class Restaurant():
     """A class representing a restaurant."""
+
     def __init__(self, restaurant_name, cuisine_type):
         """Restaurant constructor."""
         self.name = restaurant_name
@@ -13,6 +14,7 @@ class Restaurant():
     def open_restaurant(self):
         """Display a message that the restaurant is open."""
         print(f'Restaurant {self.name} is open, come on!')
+
 
 restaurant1 = Restaurant('American Burgers&Steaks', 'Fast food')
 restaurant2 = Restaurant('Cactus', 'Bistro')
