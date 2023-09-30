@@ -1,4 +1,3 @@
-
 class Restaurant():
     """A class representing a restaurant."""
 
@@ -31,11 +30,13 @@ class IceCreamStand(Restaurant):
     """A class representing a ice cream stand. It's an extension of the Restaurant class."""
 
     """Init a new ice cream stand"""
+
     def __init__(self, name, cuisine='IceCream', number_served=0):
         super().__init__(name, cuisine, number_served)
         self.flavors = []
 
     """Displays a list of ice cream flavors."""
+
     def show_flavors(self):
         print('\nAvailable icecream flavors:')
         for flavor in self.flavors:

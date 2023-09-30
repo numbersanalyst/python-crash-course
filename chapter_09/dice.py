@@ -12,8 +12,9 @@ class Die():
     def roll(self):
         """Simulate a die roll."""
         print('\nRolling...')
-        number = randint(1,self.sides)
+        number = randint(1, self.sides)
         print(f'The drawn number is {number}.')
+
 
 die1 = Die()
 for i in range(10):
