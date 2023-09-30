@@ -50,10 +50,3 @@ class Admin(User):
         """Admin account constructor."""
         super().__init__(f_name, l_name, nick, age)
         self.privilages = Privilages()
-
-
-admin = Admin('John', 'Johnson', 'Johny', 26)
-
-
-admin.describe_user()
-admin.privilages.show_privilages()
