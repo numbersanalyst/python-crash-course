@@ -24,16 +24,3 @@ class Restaurant():
     def increment_number_served(self, number):
         """Increment the number of served users."""
         self.served += number
-
-restaurant = Restaurant('American Burgers&Steaks', 'Fast food')
-
-print(restaurant.name)
-print(restaurant.cuisine)
-
-restaurant.describe_restaurant()
-restaurant.open_restaurant()
-
-restaurant.set_number_served(45)
-restaurant.increment_number_served(12)
-
-restaurant.describe_restaurant()
