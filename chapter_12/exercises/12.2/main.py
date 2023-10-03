@@ -3,24 +3,22 @@ import sys
 import pygame
 
 from settings import Settings
-from ship import Ship
+from hero import Hero
 
 
-class AlienInvasion:
-    """A general class designed to manage resources and how the game works."""
+class Game:
+    """Class representing the game with the hero image."""
 
     def __init__(self):
-        """Initialize the game and create their resorces."""
+        """Initialize the game window."""
         pygame.init()
         self.settings = Settings()
-
         self.screen = pygame.display.set_mode(
             (self.settings.screen_width, self.settings.screen_height))
-        pygame.display.set_caption('Alien Invasion')
+        pygame.display.set_caption('Game')
+        self.hero = Hero(self)
 
-        self.ship = Ship(self)
-
-    def run_game(self):
+    def run(self):
         """Run the main game loop."""
         while True:
             self._check_events()
@@ -33,12 +31,12 @@ class AlienInvasion:
                 sys.exit()
 
     def _update_screen(self):
-        """Update the images on the screen and move to new screen."""
+        """Can update the images on the screen and move to new screen."""
         self.screen.fill(self.settings.bg_color)
-        self.ship.blitme()
+        self.hero.biltme()
         pygame.display.flip()
 
 
 if __name__ == '__main__':
-    ai = AlienInvasion()
-    ai.run_game()
+    game = Game()
+    game.run()
