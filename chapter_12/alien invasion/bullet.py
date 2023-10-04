@@ -10,7 +10,7 @@ class Bullet(Sprite):
         super().__init__()
         self.screen = ai_game.screen
         self.settings = ai_game.settings
-        self.color = ai_game.settings.bullet_color
+        self.color = self.settings.bullet_color
 
         # Create a bullet rectangle at position 0,0
         # and then define the corresponding position for it.
@@ -27,6 +27,7 @@ class Bullet(Sprite):
         self.y -= self.settings.bullet_speed
         # Update the bullet rectangle position.
         self.rect.y = self.y
+        print('bullet position updated')
 
     def draw_bullet(self):
         """Displays the bullet on the screen."""
