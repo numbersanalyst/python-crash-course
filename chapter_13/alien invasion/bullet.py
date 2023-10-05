@@ -2,6 +2,7 @@ import pygame
 
 from pygame.sprite import Sprite
 
+
 class Bullet(Sprite):
     """A class designed to control bullets fired by a ship."""
 
@@ -14,8 +15,8 @@ class Bullet(Sprite):
 
         # Create a bullet rectangle at position 0,0
         # and then define the corresponding position for it.
-        self.rect = pygame.Rect(0,0, self.settings.bullet_width,
-                                 self.settings.bullet_height)
+        self.rect = pygame.Rect(0, 0, self.settings.bullet_width,
+                                self.settings.bullet_height)
         self.rect.midtop = ai_game.ship.rect.midtop
 
         # Bullet position is defined by float value.
