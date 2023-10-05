@@ -3,7 +3,7 @@ from random import choice
 
 def make_ticket(letters, length):
     """Create a new ticket based on given letters and length."""
-    return ''.join([str(choice(letters)) for i in range(length)])
+    return ''.join([str(choice(letters)) for _ in range(length)])
 
 
 def check_coupon(coupon, letters, length):
