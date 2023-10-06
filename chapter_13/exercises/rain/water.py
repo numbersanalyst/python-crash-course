@@ -20,4 +20,5 @@ class Water(pygame.sprite.Sprite):
         return False
 
     def update(self):
+        """Update the position of the water drop (falling)."""
         self.rect.y += 1

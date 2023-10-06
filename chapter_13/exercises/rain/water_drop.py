@@ -5,19 +5,19 @@ from water import Water
 
 
 class Game:
-    """A window with stars."""
+    """A window with water."""
 
     def __init__(self):
-        """Initialize the basic window properties."""
+        """Initialize the game window and create the rain."""
         pygame.init()
         self.screen = pygame.display.set_mode((1200, 800))
-        pygame.display.set_caption('Stars')
+        pygame.display.set_caption('Water drop!')
 
         self.drops_water = pygame.sprite.Group()
         self._create_rain()
 
     def run(self):
-        """Main game loop."""
+        """Main game loop that handles game events and updates the display."""
         while True:
             self._update()
             for event in pygame.event.get():
@@ -51,10 +51,16 @@ class Game:
             if water.check_for_edge():
                 self.drops_water.remove(water)
 
+    def _rain_create_new(self):
+        """Recreate the rain when there are no water drops left."""
+        if len(self.drops_water) == 0:
+            self._create_rain()
+
     def _rain_managment(self):
-        """Manage the behavior of the rain."""
+        """Manage the behavior of the rain, including updates and recreation."""
         self.drops_water.update()
         self._rain_destroy()
+        self._rain_create_new()
         self.drops_water.draw(self.screen)
 
     def _update(self):
