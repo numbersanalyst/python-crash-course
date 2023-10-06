@@ -9,11 +9,12 @@ class Settings:
         self.screen_color = (255, 255, 255)
         # Rocket settings
         self.rocket_speed = 1.5
+        self.rocket_limit = 3
         # Bullet settings
         self.bullet_speed = 1.0
         self.bullet_color = (60, 60, 60)
         self.bullet_width = 45
         self.bullet_height = 15
         self.bullet_limit = 3
-       # Star settings
+        # Star settings
         self.star_speed = 0.4

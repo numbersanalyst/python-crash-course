@@ -3,8 +3,10 @@ import sys
 import pygame
 
 from random import randint
+from time import sleep
 
 from settings import Settings
+from game_stats import GameStats
 from rocket import Rocket
 from bullet import Bullet
 from star import Star
@@ -21,6 +23,8 @@ class ShootingRocket:
             (self.settings.screen_width, self.settings.screen_height))
         pygame.display.set_caption('Shooting Rocket')
 
+        self.stats = GameStats(self)
+
         self.rocket = Rocket(self)
         self.bullets = pygame.sprite.Group()
         self.stars = pygame.sprite.Group()
@@ -29,11 +33,12 @@ class ShootingRocket:
     def run(self):
         """Main game loop."""
         while True:
-            self._update_screen()
             self._check_for_events()
-            self.rocket.update_position()
-            self._update_bullets_position()
-            self._star_update()
+            if self.stats.game_active:
+                self.rocket.update_position()
+                self._update_bullets_position()
+                self._star_update()
+            self._update_screen()
 
     def _check_for_events(self):
         """Reacts to events inside the game."""
@@ -62,30 +67,61 @@ class ShootingRocket:
             self.rocket.moving_bottom = False
 
     def _fire_bullet(self):
+        """Fire a bullet if the bullet limit is not reached."""
         if len(self.bullets.sprites()) < self.settings.bullet_limit:
             new_bullet = Bullet(self)
             self.bullets.add(new_bullet)
 
     def _update_bullets_position(self):
+        """Update the position of bullets and remove off-screen bullets."""
         self.bullets.update()
         for bullet in self.bullets.copy():
             if bullet.rect.left > self.screen.get_rect().right:
                 self.bullets.remove(bullet)
 
     def _create_stars(self, number_of_stars):
+        """Create a specified number of stars."""
         for _ in range(number_of_stars):
             star = Star(self)
             self.stars.add(star)
 
     def _check_star_bullet_collision(self):
+        """Check for collisions between stars and bullets."""
         collision = pygame.sprite.groupcollide(
             self.stars, self.bullets, True, True)
 
         if not self.stars:
             self._create_stars(randint(1, 5))
 
+    def _check_stars_left(self):
+        """Check if the stars are in the left of the screen."""
+        for star in self.stars.sprites():
+            if star.rect.left <= 0:
+                self._hit_rocket()
+
+    def _hit_rocket(self):
+        """Handle rocket being hit by stars."""
+        if self.stats.rocket_lives > 0:
+            self.stats.rocket_lives -= 1
+
+            self.bullets.empty()
+            self.stars.empty()
+
+            self._create_stars(3)
+            self.rocket._rocket_center()
+
+            sleep(2)
+        else:
+            self.stats.game_active = False
+
     def _star_update(self):
+        """Update the position of stars and handle collisions."""
         self._check_star_bullet_collision()
+        self._check_stars_left()
+
+        if pygame.sprite.spritecollideany(self.rocket, self.stars):
+            self._hit_rocket()
+
         self.stars.update()
 
     def _update_screen(self):
