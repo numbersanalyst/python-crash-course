@@ -14,5 +14,6 @@ class Settings:
         self.bullet_color = (60, 60, 60)
         self.bullet_width = 45
         self.bullet_height = 15
-        # Star settings
+        self.bullet_limit = 3
+       # Star settings
         self.star_speed = 0.4

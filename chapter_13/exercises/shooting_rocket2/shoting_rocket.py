@@ -62,8 +62,9 @@ class ShootingRocket:
             self.rocket.moving_bottom = False
 
     def _fire_bullet(self):
-        new_bullet = Bullet(self)
-        self.bullets.add(new_bullet)
+        if len(self.bullets.sprites()) < self.settings.bullet_limit:
+            new_bullet = Bullet(self)
+            self.bullets.add(new_bullet)
 
     def _update_bullets_position(self):
         self.bullets.update()
