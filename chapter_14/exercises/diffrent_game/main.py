@@ -3,6 +3,7 @@ import sys
 import pygame
 
 from settings import Settings
+from button import Button
 from ship import Ship
 from rect import Rect
 from bullet import Bullet
@@ -21,6 +22,7 @@ class Game:
         self.ship = Ship(self)
         self.rect = Rect(self)
         self.bullets = pygame.sprite.Group()
+        self.button =  Button(self, 'Play')
 
     def run(self):
         """Main program loop."""
@@ -74,6 +76,7 @@ class Game:
             bullet.draw()
         self.ship.blitme()
         self.rect.draw()
+        self.button.draw()
         pygame.display.flip()
 
 
