@@ -73,6 +73,7 @@ class Game:
             self.ship.moving_bottom = False
 
     def _game_stop(self):
+        """Stops the game."""
         self.stats.game_active = False
         pygame.mouse.set_visible(True)
         if self.button.text == 'Play':
