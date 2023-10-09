@@ -18,16 +18,18 @@ class Button():
         self.rect = pygame.Rect(0, 0, self.width, self.height)
         self.rect.center = self.screen_rect.center
 
-        self.prep_text = self._prep_text(text)
+        self.text = text # for later use
+
+        self._prep_text(text)
 
     def _prep_text(self, text):
         """Generetes and adds text to the button."""
-        self.text = self.font.render(text, True, self.color)
-        self.text_rect = self.text.get_rect()
+        self.font = self.font.render(text, True, self.color)
+        self.font_rect = self.font.get_rect()
 
-        self.text_rect.center = self.rect.center
+        self.font_rect.center = self.rect.center
 
     def draw(self):
         """Draws the button on the screen."""
         self.screen.fill(self.bg_color, self.rect)  # fill the rect
-        self.screen.blit(self.text, self.text_rect)  # add image (text)
+        self.screen.blit(self.font, self.font_rect)  # add image (text)

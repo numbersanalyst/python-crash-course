@@ -13,12 +13,17 @@ class Ship:
         self.image = pygame.image.load('images/ship.bmp')
         self.rect = self.image.get_rect()
 
-        self.rect.midleft = self.screen_rect.midleft
+        self.set_position()
 
         self.moving_top = False
         self.moving_bottom = False
 
         self.y = float(self.rect.y)
+
+    def set_position(self):
+        """Set the ship on the center left of the screen."""
+        self.rect.midleft = self.screen_rect.midleft
+        self.y = self.rect.y # update y postion
 
     def update_position(self):
         """Update the position of the ship."""

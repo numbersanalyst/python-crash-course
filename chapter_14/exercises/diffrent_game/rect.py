@@ -16,7 +16,7 @@ class Rect:
             0, 0, self.settings.r_width, self.settings.r_height)
 
         self.rect.x = self.screen_rect.width - self.rect.width
-        self.rect.y = randint(0, self.screen_rect.height - self.rect.height)
+        self.set_position() # set y postion
 
         self.y = float(self.rect.y)
 
@@ -30,6 +30,11 @@ class Rect:
         """Prevent the rect from being outside the screen."""
         if self.rect.top < 0 or self.rect.bottom > self.screen_rect.bottom:
             self.settings.r_speed *= -1
+
+    def set_position(self):
+        """Set the rectangle on the right of the screen."""
+        self.rect.y = randint(0, self.screen_rect.height - self.rect.height)
+        self.y = self.rect.y
 
     def draw(self):
         """Draw the rect on the screen."""
