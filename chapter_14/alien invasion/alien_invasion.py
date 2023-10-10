@@ -89,6 +89,7 @@ class AlienInvasion:
         """Starts the game if the game is not already running."""
         if not self.stats.game_active:
             self.stats.reset_stats()
+            self.settings.initialize_dynamic_settings()
             self.stats.game_active = True
 
             self.aliens.empty()
@@ -125,6 +126,7 @@ class AlienInvasion:
         if not self.aliens:
             self.bullets.empty()
             self._create_fleet()
+            self.settings.increase_speed()
 
     def _create_fleet(self):
         """Create the fleet of aliens."""
