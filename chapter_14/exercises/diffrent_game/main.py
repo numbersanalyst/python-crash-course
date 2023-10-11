@@ -72,6 +72,15 @@ class Game:
         elif event.key == pygame.K_DOWN:
             self.ship.moving_bottom = False
 
+    def _start_game(self):
+        """Start and reset the whole game."""
+        if not self.stats.game_active:
+            self.stats.game_active = True
+            self.settings.initialize_dynamic_settings()
+            self._reset_objects()
+            pygame.mouse.set_visible(False)
+            sleep(0.3)
+
     def _game_stop(self):
         """Stops the game."""
         self.stats.game_active = False
@@ -79,16 +88,17 @@ class Game:
         if self.button.text == 'Play':
             self.button = Button(self, 'Play again')
 
-    def _start_game(self):
-        """Start and reset the game."""
-        if not self.stats.game_active:
-            self.stats.game_active = True
-            pygame.mouse.set_visible(False)
-            self.bullets.empty()
-            self.ship.set_position()
-            self.rect.set_position()
-            self.stats.reset()
-            sleep(0.3)
+    def _reset_objects(self):
+        """Resets the game objects position and their stats."""
+        self.bullets.empty()
+        self.ship.set_position()
+        self.rect.set_position()
+        self.stats.reset()
+
+    def _game_lvl_up(self):
+        """Increases the game level, and fast restart the game."""
+        self.settings.increase_speed()
+        self._reset_objects()
 
     def _check_play_btn(self, mouse_pos):
         """If play button is pressed that stars the game."""
@@ -112,7 +122,7 @@ class Game:
     def _rect_hit(self):
         """Reaction to hit a moving rectangle."""
         sleep(0.5)
-        self._game_stop()
+        self._game_lvl_up()
 
     def _screen_update(self):
         """Update the screen and objects."""
