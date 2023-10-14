@@ -1,3 +1,5 @@
+import json
+
 class GameStats:
     """Monitoring in-game statistical data"""
 
@@ -5,8 +7,30 @@ class GameStats:
         """Initialize statistics data."""
         self.settings = ai_game.settings
         self.game_active = False
-        self.high_score = 0
+        self.high_score = self.load_high_score()
         self.reset_stats()
+
+    def load_high_score(self) -> int:
+        """Load the best score from file and return its."""
+        try:
+            with open('record.json') as f:
+                return json.load(f)
+        except:
+            return 0
+
+    def _check_storage_high_score(self) -> bool:
+        """Check if the current score is higher than the stored score."""
+        saved_high_score = self.load_high_score()
+        if saved_high_score < self.high_score:
+            return True
+
+    def save_high_score(self):
+        """Save the best score in a file."""
+        higher_score = self._check_storage_high_score()
+        if higher_score:
+            with open('record.json', 'w') as f:
+                json.dump(self.high_score, f)
+
 
     def reset_stats(self):
         """Initialize statistics data witch can change during game."""
