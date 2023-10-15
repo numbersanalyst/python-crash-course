@@ -55,15 +55,27 @@ class AlienInvasion:
         self.hard_button = Button(self, 'Hard')
 
         # Set the positions of the buttons
+        self._set_difficulty_buttons_y_position(10)
 
-        margin = 10
-
+    def _set_difficulty_buttons_y_position(self, margin):
+        """Set the horizontal position of the difficulty buttons."""
         self.easy_button.rect.top = self.play_button.rect.bottom + margin
-        self.easy_button._update_text_position()
         self.medium_button.rect.top = self.easy_button.rect.bottom + margin
-        self.medium_button._update_text_position()
         self.hard_button.rect.top = self.medium_button.rect.bottom + margin
-        self.hard_button._update_text_position()
+        self._update_difficulty_buttons_text_position()
+
+    def _reset_difficulty_buttons_x_position(self):
+        """Reset the vertical position of the difficulty buttons."""
+        self.easy_button.rect.x = self.play_button.rect.x
+        self.medium_button.rect.x = self.easy_button.rect.x
+        self.hard_button.rect.x = self.medium_button.rect.x
+        self._update_difficulty_buttons_text_position()
+
+    def _update_difficulty_buttons_text_position(self):
+        """Set the text position correct on difficulty buttons."""
+        self.easy_button.update_text_position()
+        self.medium_button.update_text_position()
+        self.hard_button.update_text_position()
 
     def _exit_game(self):
         """Save the progress and exit the game."""
@@ -117,12 +129,21 @@ class AlienInvasion:
         medium_button_clicked = self.medium_button.rect.collidepoint(mouse_pos)
         hard_button_clicked = self.hard_button.rect.collidepoint(mouse_pos)
 
+        if easy_button_clicked or medium_button_clicked or hard_button_clicked:
+            self._reset_difficulty_buttons_x_position()
+
         if easy_button_clicked:
             self.settings.difficulty_level = 'easy'
+            self.easy_button.rect.x += 10
+            self.easy_button.update_text_position()
         elif medium_button_clicked:
             self.settings.difficulty_level = 'medium'
+            self.medium_button.rect.x += 10
+            self.medium_button.update_text_position()
         elif hard_button_clicked:
             self.settings.difficulty_level = 'difficult'
+            self.hard_button.rect.x += 10
+            self.hard_button.update_text_position()
 
     def _start_game(self):
         """Starts the game if the game is not already running."""

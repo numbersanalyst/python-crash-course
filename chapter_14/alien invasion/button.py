@@ -22,9 +22,9 @@ class Button():
         and center it at the button."""
         self.msg_image = self.font.render(
             msg, True, self.text_color, self.button_color)
-        self._update_text_position()
+        self.update_text_position()
 
-    def _update_text_position(self):
+    def update_text_position(self):
         """Center text position inside button."""
         self.msg_image_rect = self.msg_image.get_rect()
         self.msg_image_rect.center = self.rect.center
