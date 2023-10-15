@@ -6,6 +6,7 @@ import pygame
 from settings import Settings
 from game_stats import GameStats
 from scoreboard import Scoreboard
+from audio import SoundPad
 from button import Button
 from ship import Ship
 from alien import Alien
@@ -26,6 +27,8 @@ class AlienInvasion:
 
         self.stats = GameStats(self)
         self.sb = Scoreboard(self)
+
+        self.soundPad = SoundPad()
 
         self.ship = Ship(self)
         self.bullets = pygame.sprite.Group()
@@ -97,6 +100,7 @@ class AlienInvasion:
                 mouse_pos = pygame.mouse.get_pos()
                 self._check_play_button(mouse_pos)
                 self._check_difficulty_buttons(mouse_pos)
+                self.soundPad.play('click')
 
     def _check_keydown_events(self, event):
         """Reactions to keydown events."""
@@ -170,6 +174,7 @@ class AlienInvasion:
         if len(self.bullets) < self.settings.bullets_allowed:
             new_bullet = Bullet(self)
             self.bullets.add(new_bullet)
+            self.soundPad.play('fire')
 
     def _update_bullets(self):
         """Update the bullets positions and remove useless bullets."""
@@ -193,9 +198,10 @@ class AlienInvasion:
                 self.stats.score += self.settings.alien_points * len(aliens)
             self.sb.prep_score()
             self.sb.check_high_score()
+            self.soundPad.play('hit')
 
         if not self.aliens:
-            self.star_new_level()
+            self.start_new_level()
 
     def start_new_level(self):
         """Clear game and start a new level."""
@@ -205,6 +211,7 @@ class AlienInvasion:
 
         self.stats.level += 1
         self.sb.prep_level()
+        self.soundPad.play('lvl_up')
 
 
     def _create_fleet(self):
@@ -260,9 +267,11 @@ class AlienInvasion:
             self.sb.prep_ships()
 
             self._reset_ship_bullets_aliens()
+            self.soundPad.play('minus_life')
 
             sleep(0.5)
         else:
+            self.soundPad.play('end')
             self.stats.game_active = False
             pygame.mouse.set_visible(True)
 
