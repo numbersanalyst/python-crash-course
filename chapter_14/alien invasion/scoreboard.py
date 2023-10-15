@@ -65,7 +65,7 @@ class Scoreboard:
 
         self.level_image_rect = self.level_image.get_rect()
         self.level_image_rect.right = self.score_rect.right
-        self.level_image_rect.top = self.score_rect.bottom + 10
+        self.level_image_rect.top = self.score_rect.bottom + 15
 
     def prep_ships(self):
         """Displays the number of ships the player has left."""
