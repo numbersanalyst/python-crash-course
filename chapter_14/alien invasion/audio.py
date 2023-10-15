@@ -13,7 +13,10 @@ class SoundPad:
         self.end_sfx = mixer.Sound('sfx/end.mp3')
         self.minus_life_sfx = mixer.Sound('sfx/minus_life.mp3')
 
+        # Volume down
         self.fire_sfx.set_volume(0.3)
+        self.click_sfx.set_volume(0.4)
+        self.minus_life_sfx.set_volume(0.4)
 
     def play(self, sound):
         """Play the choiced sound."""
