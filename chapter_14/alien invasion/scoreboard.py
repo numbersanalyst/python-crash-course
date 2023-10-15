@@ -99,7 +99,7 @@ class Scoreboard:
         self.ships_label_rect.top = ship.rect.bottom
         self.ships_label_rect.centerx = ship.rect.centerx
 
-        self.high_score_label_rect.x = self.high_score_rect.x
+        self.high_score_label_rect.centerx = self.high_score_rect.centerx
         self.high_score_label_rect.top = self.high_score_rect.bottom
 
         self.score_label_rect.right = self.score_rect.right
