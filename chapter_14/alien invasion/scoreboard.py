@@ -16,7 +16,9 @@ class Scoreboard:
         self.stats = ai_game.stats
 
         self.text_color = (30, 30, 30)
+        self.label_color = (90, 90, 90)
         self.font = pygame.font.SysFont(None, 48)
+        self.label_font = pygame.font.SysFont(None, 24)
 
         self.prep_images()
 
@@ -26,6 +28,7 @@ class Scoreboard:
         self.prep_high_score()
         self.prep_level()
         self.prep_ships()
+        self.prep_labels()
 
     def prep_score(self):
         """Transform the score to generated image."""
@@ -74,9 +77,50 @@ class Scoreboard:
             ship.rect.y = 10
             self.ships.add(ship)
 
+    def prep_labels(self):
+        """Create labels to existing values ​​that are on the screen."""
+        self.ships_label = self.label_font.render(
+            'Lives', True, self.label_color)
+        self.high_score_label = self.label_font.render(
+            'High Score', True, self.label_color)
+        self.score_label = self.label_font.render(
+            'Score', True, self.label_color)
+        self.level_label = self.label_font.render(
+            'Level', True, self.label_color)
+
+        # Get the positions / rects
+        self.ships_label_rect = self.ships_label.get_rect()
+        ship = self.ships.sprites()[0]
+
+        self.high_score_label_rect = self.high_score_label.get_rect()
+        self.score_label_rect = self.score_label.get_rect()
+        self.level_label_rect = self.level_label.get_rect()
+
+        # Set the positions
+        self.ships_label_rect.top = ship.rect.bottom
+        self.ships_label_rect.centerx = ship.rect.centerx
+
+        self.high_score_label_rect.x = self.high_score_rect.x
+        self.high_score_label_rect.top = self.high_score_rect.bottom
+
+        self.score_label_rect.right = self.score_rect.right
+        self.score_label_rect.top = self.score_rect.bottom
+
+        self.level_label_rect.right = self.level_image_rect.right
+        self.level_label_rect.top = self.level_image_rect.bottom
+
     def show_score(self):
         """Show the score on the screen."""
         self.screen.blit(self.score_image, self.score_rect)
         self.screen.blit(self.high_score_image, self.high_score_rect)
         self.screen.blit(self.level_image, self.level_image_rect)
         self.ships.draw(self.screen)
+
+        self._show_labels()
+
+    def _show_labels(self):
+        """Show the labels on the screen."""
+        self.screen.blit(self.ships_label, self.ships_label_rect)
+        self.screen.blit(self.high_score_label, self.high_score_label_rect)
+        self.screen.blit(self.score_label, self.score_label_rect)
+        self.screen.blit(self.level_label, self.level_label_rect)
