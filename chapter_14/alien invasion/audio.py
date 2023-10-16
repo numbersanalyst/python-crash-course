@@ -14,6 +14,10 @@ class SoundPad:
         self.minus_life_sfx = mixer.Sound('sfx/minus_life.mp3')
 
         # Volume down
+        self._set_volume()
+
+    def _set_volume(self):
+        """Adjust the sounds volume."""
         self.fire_sfx.set_volume(0.3)
         self.click_sfx.set_volume(0.4)
         self.minus_life_sfx.set_volume(0.4)
