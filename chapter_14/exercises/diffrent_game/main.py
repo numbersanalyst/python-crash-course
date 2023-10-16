@@ -61,7 +61,6 @@ class Game:
             elif event.type == pygame.KEYUP:
                 self._check_keyup_events(event)
             elif event.type == pygame.MOUSEBUTTONDOWN:
-                self.soundpad.play('click')
                 mouse_pos = pygame.mouse.get_pos()
                 self._check_play_btn(mouse_pos)
 
@@ -84,7 +83,6 @@ class Game:
     def _start_game(self):
         """Start and reset the whole game."""
         if not self.stats.game_active:
-            self.soundpad.stop()
             self.stats.game_active = True
             self.settings.initialize_dynamic_settings()
             self.stats.reset()
@@ -128,6 +126,7 @@ class Game:
     def _check_play_btn(self, mouse_pos):
         """If play button is pressed that stars the game."""
         if self.button.rect.collidepoint(mouse_pos):
+            self.soundpad.play('click')
             self._start_game()
 
     def _fire(self):

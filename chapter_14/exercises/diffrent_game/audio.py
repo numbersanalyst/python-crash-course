@@ -1,7 +1,9 @@
 from pygame import mixer
 
+
 class SoundPad:
     """Class for playing sounds while game is running."""
+
     def __init__(self):
         """Initialize sounds"""
         self.fire_sfx = mixer.Sound('sfx/fire.mp3')
@@ -26,10 +28,6 @@ class SoundPad:
                 self.lvl_up_sfx.play()
             case _:
                 pass
-
-    def stop(self):
-        """Stop playing the sound."""
-        mixer.stop()
 
     def _set_volume(self):
         """Adjust the sounds volume."""
