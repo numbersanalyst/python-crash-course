@@ -39,7 +39,3 @@ class SoundPad:
                 self.minus_life_sfx.play()
             case _:
                 pass
-
-    def stop(self):
-        """Stop playing the sound."""
-        mixer.stop()
