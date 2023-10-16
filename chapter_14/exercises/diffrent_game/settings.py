@@ -30,7 +30,7 @@ class Settings:
         self.s_speed = 1.0
         self.b_speed = 1.5
         self.r_speed = 0.4
-        self.hit_point = 50
+        self.hit_points = 50
 
     def increase_speed(self):
         """Incrase the speed settings. Game will be faster and you will recive more points."""

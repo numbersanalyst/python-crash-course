@@ -8,6 +8,7 @@ class GameStats:
         """Initialize statistics data."""
         self.settings = game.settings
         self.game_active = False
+        self.high_score = self.load_high_score()
         self.reset()
         self.reset_bullets()
 
@@ -15,7 +16,6 @@ class GameStats:
         """Initializate and reset the game stats."""
         self.level = 1
         self.score = 0
-        self.high_score = self.load_high_score()
 
     def reset_bullets(self):
         """Initializate and reset the stats about bullets."""
