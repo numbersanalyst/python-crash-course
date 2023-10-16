@@ -100,7 +100,6 @@ class AlienInvasion:
                 mouse_pos = pygame.mouse.get_pos()
                 self._check_play_button(mouse_pos)
                 self._check_difficulty_buttons(mouse_pos)
-                self.soundPad.play('click')
 
     def _check_keydown_events(self, event):
         """Reactions to keydown events."""
@@ -126,6 +125,7 @@ class AlienInvasion:
         """Try to start the game if play button is pressed."""
         if self.play_button.rect.collidepoint(mouse_pos):
             self._start_game()
+            self.soundPad.play('click')
 
     def _check_difficulty_buttons(self, mouse_pos):
         """If difficulty buttons are pressed change the level of difficulty."""
@@ -135,6 +135,7 @@ class AlienInvasion:
 
         if easy_button_clicked or medium_button_clicked or hard_button_clicked:
             self._reset_difficulty_buttons_x_position()
+            self.soundPad.play('click')
 
         if easy_button_clicked:
             self.settings.difficulty_level = 'easy'
