@@ -88,6 +88,7 @@ class Game:
             self.stats.game_active = True
             self.settings.initialize_dynamic_settings()
             self.stats.reset()
+            self.stats.reset_bullets()
             self._reset_objects()
             pygame.mouse.set_visible(False)
             sleep(0.3)
