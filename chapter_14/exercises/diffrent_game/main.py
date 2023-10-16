@@ -7,6 +7,7 @@ from time import sleep
 from settings import Settings
 from audio import SoundPad
 from game_stats import GameStats
+from scoreboard import ScoreBoard
 from button import Button
 from ship import Ship
 from rect import Rect
@@ -19,14 +20,16 @@ class Game:
     def __init__(self):
         """Initialize the game window, and base data."""
         pygame.init()
+
         self.settings = Settings()
-
-        self.soundpad = SoundPad()
-
         self.stats = GameStats(self)
+
         self.screen = pygame.display.set_mode(
             (self.settings.w_width, self.settings.w_height))
         pygame.display.set_caption('Ship and Rect')
+
+        self.sb = ScoreBoard(self)
+        self.soundpad = SoundPad()
 
         self.ship = Ship(self)
         self.rect = Rect(self)
@@ -51,6 +54,7 @@ class Game:
         """Check if events are invoked."""
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
+                self.stats.save_high_score()
                 sys.exit()
             elif event.type == pygame.KEYDOWN:
                 self._check_keydown_events(event)
@@ -83,6 +87,7 @@ class Game:
             self.soundpad.stop()
             self.stats.game_active = True
             self.settings.initialize_dynamic_settings()
+            self.stats.reset()
             self._reset_objects()
             pygame.mouse.set_visible(False)
             sleep(0.3)
@@ -96,17 +101,28 @@ class Game:
             self.button = Button(self, 'Play again')
 
     def _reset_objects(self):
-        """Resets the game objects position and their stats."""
+        """Resets the game objects position and images."""
         self.bullets.empty()
         self.ship.set_position()
         self.rect.set_position()
-        self.stats.reset()
+        self.sb.prep_all()
 
     def _game_lvl_up(self):
         """Increases the game level, and fast restart the game."""
         self.soundpad.play('lvl_up')
+        self.stats.level += 1
+
+        self._update_score()
+
+        self.stats.reset_bullets()
         self.settings.increase_speed()
         self._reset_objects()
+
+    def _update_score(self):
+        """Update stats about score in the game."""
+        self.stats.score += self.settings.hit_points
+        if self.stats.score > self.stats.high_score:
+            self.stats.high_score = self.stats.score
 
     def _check_play_btn(self, mouse_pos):
         """If play button is pressed that stars the game."""
@@ -117,9 +133,12 @@ class Game:
         """Fire the bullet."""
         if self.stats.bullets_left > 0:
             self.soundpad.play('fire')
+
             new_bullet = Bullet(self)
             self.bullets.add(new_bullet)
             self.stats.bullets_left -= 1
+
+            self.sb.prep_bullets_left()
         else:
             self._game_stop()
 
@@ -140,6 +159,7 @@ class Game:
             bullet.draw()
         self.ship.blitme()
         self.rect.draw()
+        self.sb.draw()
         if not self.stats.game_active:
             self.button.draw()
 

@@ -18,7 +18,11 @@ class Settings:
         self.r_height = 65
         self.r_color = (0, 0, 0)
 
+        self.hit_points = 50
+        self.score_scale = 1.5
+
         self.speedup_scale = 1.1
+
         self.initialize_dynamic_settings()
 
     def initialize_dynamic_settings(self):
@@ -26,9 +30,11 @@ class Settings:
         self.s_speed = 1.0
         self.b_speed = 1.5
         self.r_speed = 0.4
+        self.hit_point = 50
 
     def increase_speed(self):
-        """Incrase the speed settings. Game will be faster."""
+        """Incrase the speed settings. Game will be faster and you will recive more points."""
         self.s_speed *= self.speedup_scale
         self.b_speed *= self.speedup_scale
         self.r_speed *= self.speedup_scale
+        self.hit_points = int(self.hit_points * self.score_scale)
