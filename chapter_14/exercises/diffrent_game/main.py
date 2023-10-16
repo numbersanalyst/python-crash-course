@@ -155,6 +155,7 @@ class Game:
         self.ship.blitme()
         self.rect.draw()
         self.sb.draw()
+        self.sb.draw_labels()
         if not self.stats.game_active:
             self.button.draw()
 
