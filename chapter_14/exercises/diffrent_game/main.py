@@ -146,12 +146,7 @@ class Game:
     def _check_bullet_rect_collision(self):
         """Collect the collision between the bullet and reactangle."""
         if pygame.sprite.spritecollideany(self.rect, self.bullets):
-            self._rect_hit()
-
-    def _rect_hit(self):
-        """Reaction to hit a moving rectangle."""
-        sleep(0.5)
-        self._game_lvl_up()
+            self._game_lvl_up()
 
     def _screen_update(self):
         """Update the screen and objects."""
