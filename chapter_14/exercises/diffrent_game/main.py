@@ -5,6 +5,7 @@ import pygame
 from time import sleep
 
 from settings import Settings
+from audio import SoundPad
 from game_stats import GameStats
 from button import Button
 from ship import Ship
@@ -19,6 +20,9 @@ class Game:
         """Initialize the game window, and base data."""
         pygame.init()
         self.settings = Settings()
+
+        self.soundpad = SoundPad()
+
         self.stats = GameStats(self)
         self.screen = pygame.display.set_mode(
             (self.settings.w_width, self.settings.w_height))
@@ -53,6 +57,7 @@ class Game:
             elif event.type == pygame.KEYUP:
                 self._check_keyup_events(event)
             elif event.type == pygame.MOUSEBUTTONDOWN:
+                self.soundpad.play('click')
                 mouse_pos = pygame.mouse.get_pos()
                 self._check_play_btn(mouse_pos)
 
@@ -75,6 +80,7 @@ class Game:
     def _start_game(self):
         """Start and reset the whole game."""
         if not self.stats.game_active:
+            self.soundpad.stop()
             self.stats.game_active = True
             self.settings.initialize_dynamic_settings()
             self._reset_objects()
@@ -85,6 +91,7 @@ class Game:
         """Stops the game."""
         self.stats.game_active = False
         pygame.mouse.set_visible(True)
+        self.soundpad.play('end')
         if self.button.text == 'Play':
             self.button = Button(self, 'Play again')
 
@@ -97,6 +104,7 @@ class Game:
 
     def _game_lvl_up(self):
         """Increases the game level, and fast restart the game."""
+        self.soundpad.play('lvl_up')
         self.settings.increase_speed()
         self._reset_objects()
 
@@ -108,6 +116,7 @@ class Game:
     def _fire(self):
         """Fire the bullet."""
         if self.stats.bullets_left > 0:
+            self.soundpad.play('fire')
             new_bullet = Bullet(self)
             self.bullets.add(new_bullet)
             self.stats.bullets_left -= 1
