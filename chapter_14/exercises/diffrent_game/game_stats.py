@@ -24,7 +24,7 @@ class GameStats:
     def load_high_score(self):
         """Load the best score from file."""
         try:
-            with open('record.json', 'r') as f:
+            with open("record.json", "r") as f:
                 return json.load(f)
         except:
             return 0
@@ -32,7 +32,7 @@ class GameStats:
     def save_high_score(self):
         """Save the best score in file."""
         if self._check_stored_high_score():
-            with open('record.json', 'w') as f:
+            with open("record.json", "w") as f:
                 json.dump(self.high_score, f)
 
     def _check_stored_high_score(self) -> bool:

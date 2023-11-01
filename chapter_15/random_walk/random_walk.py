@@ -1,6 +1,7 @@
 from random import choice
 
-class RandomWalk():
+
+class RandomWalk:
     """Klasa przeznaczona do wygenerowania błądzenia losowego."""
 
     def __init__(self, num_points=5000):
@@ -27,6 +28,6 @@ class RandomWalk():
 
     def get_step(self):
         """Generuje nowy losowy punkt."""
-        direction = choice([1,-1])
-        distance = choice([0,1,2,3,4])
-        return direction*distance
+        direction = choice([1, -1])
+        distance = choice([0, 1, 2, 3, 4])
+        return direction * distance
