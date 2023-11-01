@@ -1,5 +1,6 @@
 import json
 
+
 class GameStats:
     """Monitoring in-game statistical data"""
 
@@ -13,9 +14,13 @@ class GameStats:
     def load_high_score(self) -> int:
         """Load the best score from file and return its."""
         try:
-            with open('record.json') as f:
+            with open("record.json") as f:
                 return json.load(f)
-        except:
+        except FileNotFoundError:
+            print("****File with record not found.")
+            return 0
+        except Exception as err:
+            print(f"****Error: {err}.")
             return 0
 
     def _check_storage_high_score(self) -> bool:
@@ -28,9 +33,8 @@ class GameStats:
         """Save the best score in a file."""
         higher_score = self._check_storage_high_score()
         if higher_score:
-            with open('record.json', 'w') as f:
+            with open("record.json", "w") as f:
                 json.dump(self.high_score, f)
-
 
     def reset_stats(self):
         """Initialize statistics data witch can change during game."""

@@ -26,7 +26,11 @@ class GameStats:
         try:
             with open("record.json", "r") as f:
                 return json.load(f)
-        except:
+        except FileNotFoundError:
+            print("****File with record not found.")
+            return 0
+        except Exception as err:
+            print(f"****Error: {err}.")
             return 0
 
     def save_high_score(self):
