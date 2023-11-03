@@ -17,7 +17,7 @@ data = [Bar(x=x_values, y=frequencies)]
 x_axis_config = {"title": "Results", "dtick": 1}
 y_axis_config = {"title": "Frequency of occurance values"}
 my_layout = Layout(
-    title="Result of throwing two die D6 one hundred times.",
+    title="Result of throwing two die D6 one thousand times.",
     xaxis=x_axis_config,
     yaxis=y_axis_config,
 )
