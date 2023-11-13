@@ -3,8 +3,8 @@ import json
 from plotly import offline
 from plotly.graph_objs import Layout, Scattergeo
 
-filename = "data/eq_data_30_day_m1.json"
-with open(filename) as f:
+filename = "data/eq_data_30_day_m1_fresh.json"
+with open(filename, encoding="utf8") as f:
     all_eq_data = json.load(f)
 
 layout_title = all_eq_data["metadata"]["title"]
