@@ -7,6 +7,7 @@ filename = "data/eq_data_30_day_m1.json"
 with open(filename) as f:
     all_eq_data = json.load(f)
 
+layout_title = all_eq_data["metadata"]["title"]
 all_eq_dicts = all_eq_data["features"]
 
 mags, lons, lats, hover_texts = [], [], [], []
@@ -31,7 +32,7 @@ data = [
         },
     }
 ]
-my_layout = Layout(title="Earthquakes in the world")
+my_layout = Layout(title=layout_title)
 
 fig = {"data": data, "layout": my_layout}
 offline.plot(fig, filename="global_earthquakes.html")
