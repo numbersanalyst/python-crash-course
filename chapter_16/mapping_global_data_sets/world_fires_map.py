@@ -1,7 +1,7 @@
 import csv
 
 from plotly import offline
-from plotly.graph_objects import Scattergeo, Layout
+from plotly.graph_objects import Layout, Scattergeo
 
 data_limit = 5_000
 iteration = 0
@@ -22,20 +22,21 @@ with open(filename, encoding="utf8") as f:
         if iteration > data_limit:
             break
 
-
-data = [{
-    "type": "scattergeo",
-    "lon": lons,
-    "lat": lats,
-    "text": dates,
-    "marker": {
-        "size": [0.05 * power for power in powers],
-        "color": powers,
-        "colorscale": "Hot",
-        "reversescale": True,
-        "colorbar": {"title": "brightness of the fire"}
+data = [
+    {
+        "type": "scattergeo",
+        "lon": lons,
+        "lat": lats,
+        "text": dates,
+        "marker": {
+            "size": [0.05 * power for power in powers],
+            "color": powers,
+            "colorscale": "Hot",
+            "reversescale": True,
+            "colorbar": {"title": "brightness of the fire"},
+        },
     }
-}]
+]
 
 my_layout = Layout(title=f"{data_limit} fires on the world in 2018")
 
