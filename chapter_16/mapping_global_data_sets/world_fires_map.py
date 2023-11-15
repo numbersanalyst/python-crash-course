@@ -1,7 +1,7 @@
 import csv
 
 from plotly import offline
-from plotly.graph_objects import Layout, Scattergeo
+from plotly.graph_objects import Layout
 
 data_limit = 5_000
 iteration = 0

@@ -1,7 +1,7 @@
 import json
 
 from plotly import offline
-from plotly.graph_objs import Layout, Scattergeo
+from plotly.graph_objs import Layout
 
 filename = "data/eq_data_30_day_m1_fresh.json"
 with open(filename, encoding="utf8") as f:
