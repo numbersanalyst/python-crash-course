@@ -25,15 +25,12 @@ data = [
         "x": links,
         "y": comments,
         "hovertext": titles,
-        "marker": {
-            "color": comments,
-            "colorscale": "Plotly3",
-        },
+        "marker": {"color": comments, "colorscale": "Bluered", "reversescale": True},
     }
 ]
 
 my_layout = {
-    "title": "Hacker News top 30",
+    "title": "Hacker News top 30 posts today",
     "titlefont": {"size": 28},
     "xaxis": {
         "title": "News",
