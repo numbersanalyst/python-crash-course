@@ -8,7 +8,7 @@ class Topic(models.Model):
     date_added = models.DateTimeField(auto_now_add=True)
 
     class Meta:
-        verbose_name_plural = 'Topics'
+        verbose_name_plural = 'topics'
 
     def __str__(self):
         """Return a string representation of the model."""
