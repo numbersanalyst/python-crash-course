@@ -8,11 +8,12 @@ class Topic(models.Model):
     date_added = models.DateTimeField(auto_now_add=True)
 
     class Meta:
-        verbose_name_plural = 'topics'
+        verbose_name_plural = "topics"
 
     def __str__(self):
         """Return a string representation of the model."""
         return self.text
+
 
 class Entry(models.Model):
     """Information about progress in learning."""
@@ -22,8 +23,10 @@ class Entry(models.Model):
     date_added = models.DateTimeField(auto_now_add=True)
 
     class Meta:
-        verbose_name_plural = 'entries'
+        verbose_name_plural = "entries"
 
     def __str__(self):
         """Return a string representation of the model."""
-        return f"{self.text[:50]}..."
+        if self.text > 50:
+            return f"{self.text[:50]}..."
+        return self.text
