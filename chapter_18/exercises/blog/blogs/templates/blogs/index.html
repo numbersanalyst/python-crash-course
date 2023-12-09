@@ -1,0 +1,14 @@
+{% extends 'blogs/base.html' %} {% block content %}
+<p><a href="{% url 'blogs:new_post' %}">Dodaj nowy post</a></p>
+
+<ul>
+  {% for blog in blogs %}
+  <li>
+    <p>{{ blog.date_added | date:"d.m.Y" }}</p>
+    <h3>{{ blog.title }}</h3>
+    <h4>{{ blog.text | linebreaks }}</h4>
+    <p><a href="{% url 'blogs:edit_post' blog.id %}">Edytuj</a></p>
+  </li>
+  {% endfor %}
+</ul>
+{% endblock content %}
