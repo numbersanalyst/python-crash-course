@@ -1,3 +1,10 @@
-<p><a href="{% url 'blogs:index' %}">Strona z przeróżnymi postami</a></p>
-{% block content %}
-{% endblock content %}
+<p>
+  <a href="{% url 'blogs:index' %}">Strona z przeróżnymi postami</a>
+  {% if user.is_authenticated %} Cześć {{ user.username }}.
+  {% include "registration/logout_form.html" %}
+  {% else %}
+  <a href="{% url 'users:register' %}">Zarejestruj</a>
+  <a href="{% url 'users:login' %}">Zaloguj</a>
+  {% endif %}
+</p>
+{% block content %} {% endblock content %}

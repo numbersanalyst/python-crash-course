@@ -1,0 +1,12 @@
+{% extends "blogs/base.html" %}
+{% block content %}
+<p>Zaloguj się do serwisu.</p>
+{% if form.errors %}
+<p>Coś nie trybi...</p>
+{% endif %}
+<form action="{% url 'users:login' %}" method="post">
+  {% csrf_token %} {{ form.as_p }}
+  <input type="submit" value="Zaloguj" />
+  <input type="hidden" name="next" value="{% url 'blogs:index' %}" />
+</form>
+{% endblock content %}
