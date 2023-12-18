@@ -24,8 +24,7 @@ def topic(request, topic_id):
     """Show a single topic and all its entries."""
     topic = Topic.objects.get(id=topic_id)
 
-    if topic.owner != request.user:
-        raise Http404
+    _check_topic_owner(topic.owner, request.user)
 
     entries = topic.entry_set.order_by("-date_added")
     context = {"topic": topic, "entries": entries}
@@ -74,8 +73,7 @@ def edit_entry(request, entry_id):
     entry = Entry.objects.get(id=entry_id)
     topic = entry.topic
 
-    if topic.owner != request.user:
-        raise Http404
+    _check_topic_owner(topic.owner, request.user)
 
     if request.method != "POST":
         form = EntryForm(instance=entry)
@@ -87,3 +85,9 @@ def edit_entry(request, entry_id):
 
     context = {"entry": entry, "topic": topic, "form": form}
     return render(request, "learning_logs/edit_entry.html", context)
+
+
+def _check_topic_owner(owner, user):
+    """Check if user is the owner of the topic."""
+    if owner != user:
+        raise Http404
