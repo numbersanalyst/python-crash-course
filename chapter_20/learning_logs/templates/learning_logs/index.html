@@ -1,0 +1,16 @@
+{% extends "learning_logs/base.html" %} {% block content %}
+<main class="container">
+  <div class="bg-body-tertiary p-5 rounded mt-3">
+    <div class="col-sm-8 mx-auto">
+      <h1>Monitoruj postępy w nauce</h1>
+      <p class="lead">Załóż konto, aby rozpocząć korzystanie z aplikacji Learning Log oraz wyświetlić listę poznawanych tematów. Gdy nauczysz się czegoś nowego na dany temat, utwórz wpis podsumowujący to, czego się nauczyłeś.</p>
+      <a
+        class="btn btn-lg btn-primary"
+        href="{% url 'users:register' %}"
+        role="button"
+        >Zarejestruj konto &raquo;</a
+      >
+    </div>
+  </div>
+</main>
+{% endblock content %}
