@@ -9,6 +9,5 @@
   {% csrf_token %} {{ form | crispy }}
   <br>
   <button name="submit" class="btn btn-primary">Zaloguj</button>
-  <input type="hidden" name="next" value="{% url 'learning_logs:index' %}" />
 </form>
 {% endblock content %}
