@@ -1,0 +1,13 @@
+{% extends 'blogs/base.html' %} 
+{% load crispy_forms_tags %}
+
+{% block header %}
+Napisz coś ciekawego
+{% endblock header %}
+
+{% block content %}
+<form action="{% url 'blogs:new_post' %}" method="POST">
+  {% csrf_token %} {{ form | crispy }}
+  <button type="submit" class="btn btn-primary">Dodaj post</button>
+</form>
+{% endblock content %}

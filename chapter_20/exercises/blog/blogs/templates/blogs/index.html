@@ -1,0 +1,24 @@
+{% extends 'blogs/base.html' %} 
+
+{% block header %}
+Ostatnie posty
+{% endblock header %}
+
+{% block content %}
+
+{% for blog in blogs %}
+<div class="card mb-4">
+  <div class="card-header">
+    {{ blog.date_added | date:"d.m.Y" }}
+  </div>
+  <div class="card-body">
+    <h5 class="card-title">{{ blog.title }}</h5>
+    <p class="card-text">{{ blog.text | linebreaks }}</p>
+    {% if user == blog.owner %}
+    <p><a href="{% url 'blogs:edit_post' blog.id %}">Edytuj</a></p>
+    {% endif %}
+  </div>
+</div>
+{% endfor %}
+
+{% endblock content %}
