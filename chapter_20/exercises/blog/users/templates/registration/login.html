@@ -10,6 +10,5 @@ Zaloguj się do serwisu
 <form action="{% url 'users:login' %}" method="post">
   {% csrf_token %} {{ form | crispy }}
   <button name="submit" class="btn btn-primary">Zaloguj</button>
-  <input type="hidden" name="next" value="{% url 'blogs:index' %}" />
 </form>
 {% endblock content %}
