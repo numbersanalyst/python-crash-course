@@ -38,6 +38,8 @@ INSTALLED_APPS = [
     # Third party applications
     # 'django_bootstrap5',
     # I don't use this package beacause it's not updated to the latest version
+    "crispy_forms",
+    'crispy_bootstrap5',
 
     # Default applications
     "django.contrib.admin",
@@ -133,3 +135,5 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 # My settings
 LOGIN_URL = "users:login"
+CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
+CRISPY_TEMPLATE_PACK = "bootstrap5"

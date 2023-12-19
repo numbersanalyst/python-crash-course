@@ -1,12 +1,14 @@
-{% extends 'learning_logs/base.html' %} {% block content %} {% if form.errors %}
-<p>
-  Nazwa użytkownika bądź hasło jest nieprawidłowe. Proszę spróbować ponownie.
-</p>
-{% endif %}
+{% extends 'learning_logs/base.html' %} {% load crispy_forms_tags %}
 
-<form action="{% url 'users:login' %}" method="post">
-  {% csrf_token %} {{ form.as_p }}
-  <button name="submit">Zaloguj</button>
+{% block page_header %}
+<h2>Zaloguj się do konta</h2>
+{% endblock page_header %}
+
+{% block content %}
+<form action="{% url 'users:login' %}" method="post" class="form">
+  {% csrf_token %} {{ form | crispy }}
+  <br>
+  <button name="submit" class="btn btn-primary">Zaloguj</button>
   <input type="hidden" name="next" value="{% url 'learning_logs:index' %}" />
 </form>
 {% endblock content %}
