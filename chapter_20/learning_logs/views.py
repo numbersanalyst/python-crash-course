@@ -51,7 +51,7 @@ def new_topic(request):
 @login_required
 def new_entry(request, topic_id):
     """Add a new entry for a particular topic."""
-    topic = get_object_or_404(Topic, topic_id)
+    topic = get_object_or_404(Topic, id=topic_id)
 
     _check_topic_owner(topic.owner, request.user)
 
@@ -87,6 +87,21 @@ def edit_entry(request, entry_id):
 
     context = {"entry": entry, "topic": topic, "form": form}
     return render(request, "learning_logs/edit_entry.html", context)
+
+@login_required
+def delete_entry(request, entry_id):
+    """Delete an existing entry."""
+    entry = get_object_or_404(Entry, id=entry_id)
+    topic = entry.topic
+
+    _check_topic_owner(topic.owner, request.user)
+
+    if request.method == "POST":
+        entry.delete()
+        return redirect("learning_logs:topic", topic_id=topic.id)
+
+    context = {"entry": entry, "topic": topic}
+    return render(request, "learning_logs/delete_entry.html", context)
 
 
 def _check_topic_owner(owner, user):

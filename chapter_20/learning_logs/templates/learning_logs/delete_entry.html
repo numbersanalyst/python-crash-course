@@ -1,0 +1,16 @@
+{% extends "learning_logs/base.html" %}
+{% load crispy_forms_tags %}
+
+{% block page_header %}
+<h1>Potwierdzenie usunięcia wpisu</h1>
+<h4><a href="{% url 'learning_logs:topic' topic.id %}">{{topic}}</a></h4>
+{% endblock page_header %}
+
+{% block content %}
+<form action="{% url 'learning_logs:delete_entry' entry.id %}" method="post">
+    <p><b>Data dodania:</b> {{ entry.date_added }}</p>
+    <p><b>Zawartość:</b> {{ entry.text }}</p>
+    <button name="submit" class="btn btn-danger">Usuń</button>
+</form>
+
+{% endblock content %}

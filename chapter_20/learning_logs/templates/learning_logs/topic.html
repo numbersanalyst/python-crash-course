@@ -9,8 +9,12 @@
 <ul>
   {% for entry in entries %}
   <div class="card mb-4">
-    <h4 class="card-header">{{entry.date_added | date:"d E Y H:i"}}<a href="{% url 'learning_logs:edit_entry' entry.id %}"
-        class="btn btn-secondary btn-sm float-end">Edytuj wpis</a></h4>
+    <h4 class="card-header">{{entry.date_added | date:"d E Y H:i"}}
+      <div class="float-end">
+        <a href="{% url 'learning_logs:delete_entry' entry.id %}" class="btn btn-outline-danger btn-sm">Usuń</a>
+        <a href="{% url 'learning_logs:edit_entry' entry.id %}" class="btn btn-secondary btn-sm">Edytuj</a>
+      </div>
+      </h4>
     <div class="card-body">
       <p class="card-text">{{ entry.text | linebreaks}}</p>
     </div>
