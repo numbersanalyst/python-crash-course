@@ -12,6 +12,9 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 
 from pathlib import Path
 
+# For platformsh config
+from platformshconfig import Config
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -34,13 +37,11 @@ INSTALLED_APPS = [
     # My applications
     "learning_logs",
     "users",
-    
     # Third party applications
     # "django_bootstrap5",
     # I don't use this package beacause it's not updated to the latest version
     "crispy_forms",
     "crispy_bootstrap5",
-
     # Default applications
     "django.contrib.admin",
     "django.contrib.auth",
@@ -135,7 +136,31 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 # My settings
 LOGIN_URL = "users:login"
-LOGIN_REDIRECT_URL = 'learning_logs:index'
-LOGOUT_REDIRECT_URL = 'learning_logs:index'
+LOGIN_REDIRECT_URL = "learning_logs:index"
+LOGOUT_REDIRECT_URL = "learning_logs:index"
 CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
 CRISPY_TEMPLATE_PACK = "bootstrap5"
+
+# Platform.sh settings.
+config = Config()
+if config.is_valid_platform():
+    ALLOWED_HOSTS.append(".platformsh.site")
+    DEBUG = False
+
+    if config.appDir:
+        STATIC_ROOT = Path(config.appDir) / "static"
+    if config.projectEntropy:
+        SECRET_KEY = config.projectEntropy
+
+    if not config.in_build():
+        db_settings = config.credentials("database")
+        DATABASES = {
+            "default": {
+                "ENGINE": "django.db.backends.postgresql",
+                "NAME": db_settings["path"],
+                "USER": db_settings["username"],
+                "PASSWORD": db_settings["password"],
+                "HOST": db_settings["host"],
+                "PORT": db_settings["port"],
+            },
+        }
