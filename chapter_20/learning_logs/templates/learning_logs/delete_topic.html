@@ -1,0 +1,25 @@
+{% extends "learning_logs/base.html" %}
+{% load crispy_forms_tags %}
+
+{% block page_header %}
+<h1>Potwierdzenie usunięcia tematu</h1>
+<h4><a href="{% url 'learning_logs:topic' topic.id %}">{{topic}}</a></h4>
+{% endblock page_header %}
+
+{% block content %}
+<form action="{% url 'learning_logs:delete_topic' topic.id %}" method="post">
+    {% csrf_token %}
+    <p><b>Data dodania:</b> {{ topic.date_added }}</p>
+    {% if entries %}
+    <p>Wspisy pod tematem (zostaną również usunięte):</p>
+    <ul>
+        {% for entry in entries %}
+        <li>{{ entry.text }}</li>
+        {% endfor %}
+    </ul>
+    {% else %}
+    <p>Wspisy pod tematem nie istnieją.</p>
+    {% endif %}
+    <button name="submit" class="btn btn-danger">Usuń</button>
+</form>
+{% endblock content %}

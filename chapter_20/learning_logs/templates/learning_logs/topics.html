@@ -11,6 +11,10 @@
   <li class="list-group-item">
     <h4>
       <a href="{% url 'learning_logs:topic' topic.id %}">{{ topic }}</a>
+      <div class="float-end">
+        <a href="{% url 'learning_logs:delete_topic' topic.id %}" class="btn btn-outline-danger btn-sm">Usuń</a>
+        <a href="{% url 'learning_logs:edit_topic' topic.id %}" class="btn btn-outline-secondary btn-sm">Edytuj</a>
+      </div>
     </h4>
   </li>
   {% empty %}

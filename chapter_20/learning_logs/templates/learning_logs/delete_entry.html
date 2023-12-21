@@ -8,9 +8,9 @@
 
 {% block content %}
 <form action="{% url 'learning_logs:delete_entry' entry.id %}" method="post">
+    {% csrf_token %}
     <p><b>Data dodania:</b> {{ entry.date_added }}</p>
     <p><b>Zawartość:</b> {{ entry.text }}</p>
     <button name="submit" class="btn btn-danger">Usuń</button>
 </form>
-
 {% endblock content %}

@@ -48,6 +48,40 @@ def new_topic(request):
     return render(request, "learning_logs/new_topic.html", context)
 
 
+def edit_topic(request, topic_id):
+    """Edit an existing topic."""
+    topic = get_object_or_404(Topic, id=topic_id)
+
+    _check_topic_owner(topic.owner, request.user)
+
+    if request.method != "POST":
+        form = TopicForm(instance=topic)
+    else:
+        form = TopicForm(instance=topic, data=request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect("learning_logs:topics")
+
+    context = {"topic": topic, "form": form}
+    return render(request, "learning_logs/edit_topic.html", context)
+
+
+@login_required
+def delete_topic(request, topic_id):
+    """Delete a topic."""
+    topic = get_object_or_404(Topic, id=topic_id)
+    entires = topic.entry_set.all()
+
+    _check_topic_owner(topic.owner, request.user)
+
+    if request.method == "POST":
+        topic.delete()
+        return redirect("learning_logs:topics")
+
+    context = {"topic": topic, "entries": entires}
+    return render(request, "learning_logs/delete_topic.html", context)
+
+
 @login_required
 def new_entry(request, topic_id):
     """Add a new entry for a particular topic."""
@@ -87,6 +121,7 @@ def edit_entry(request, entry_id):
 
     context = {"entry": entry, "topic": topic, "form": form}
     return render(request, "learning_logs/edit_entry.html", context)
+
 
 @login_required
 def delete_entry(request, entry_id):
