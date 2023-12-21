@@ -12,8 +12,7 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 
 from pathlib import Path
 
-# For platformsh config
-from platformshconfig import Config
+import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -26,9 +25,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = "django-insecure-5fvn=2$8@^y3d37m3nxfu^m$q5v7i$%2sk(cyu*9r8o2el%!z6"
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["127.0.0.1"]
 
 
 # Application definition
@@ -66,7 +65,7 @@ ROOT_URLCONF = "learning_log.urls"
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": [],
+        "DIRS": [os.path.join(BASE_DIR, "templates")],
         "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [
@@ -140,27 +139,3 @@ LOGIN_REDIRECT_URL = "learning_logs:index"
 LOGOUT_REDIRECT_URL = "learning_logs:index"
 CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
 CRISPY_TEMPLATE_PACK = "bootstrap5"
-
-# Platform.sh settings.
-config = Config()
-if config.is_valid_platform():
-    ALLOWED_HOSTS.append(".platformsh.site")
-    DEBUG = False
-
-    if config.appDir:
-        STATIC_ROOT = Path(config.appDir) / "static"
-    if config.projectEntropy:
-        SECRET_KEY = config.projectEntropy
-
-    if not config.in_build():
-        db_settings = config.credentials("database")
-        DATABASES = {
-            "default": {
-                "ENGINE": "django.db.backends.postgresql",
-                "NAME": db_settings["path"],
-                "USER": db_settings["username"],
-                "PASSWORD": db_settings["password"],
-                "HOST": db_settings["host"],
-                "PORT": db_settings["port"],
-            },
-        }
