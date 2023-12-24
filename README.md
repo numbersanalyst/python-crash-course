@@ -3,7 +3,7 @@
 ![no starch press logo](logo.webp)
 ![book cover](book.jpg)
 
-It's my Python notes to that book in Polish version. It was hard and long journey but worth it.
+It's my notes to that book in Polish version. It was hard and long journey but worth it. I've learned a lot.
 
 ## Table of contents
 <details>
